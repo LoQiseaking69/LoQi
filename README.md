@@ -20,7 +20,7 @@ but, if you prefer an easier to use side panel with repo insights for
 
 <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
 
-<a href="https://github.com/LoQiseaking69/LoQi/actions/runs/7965465904/artifacts/1257729324">
+<a href="https://github.com/LoQiseaking69/LoQi/actions/runs/7966003625/artifacts/1257836550">
   <img src="https://img.shields.io/badge/Download%20for-Windows-blue?style=for-the-badge&logo=windows" alt="Download for Windows">
 </a>
 
