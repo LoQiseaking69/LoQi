@@ -8,68 +8,64 @@ on:
 jobs:
   build-windows:
     runs-on: windows-latest
-    strategy:
-      matrix:
-        python-version: [3.9]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: '3.9'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pyinstaller PyQt5 requests
-      - name: Copy Windows assets
-        run: |
-          cp ASSETS/PortF.ico ./
+          pip install -r requirements.txt
+
       - name: Build application for Windows
         run: |
-          pyinstaller --onefile --windowed --icon PortF.ico --add-data "ASSETS/PortF.ico;." GHP.py
+          pyinstaller --onefile --windowed --icon ASSETS/PortF.ico --add-data "ASSETS/PortF.ico;." src/GHP.py
           mkdir -p dist/windows
           mv dist/GHP.exe dist/windows/GHP.exe
+
       - name: Upload Windows artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: windows-application
           path: dist/windows
 
   build-macos:
     runs-on: macos-latest
-    strategy:
-      matrix:
-        python-version: [3.9]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: '3.9'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pyinstaller PyQt5 requests
+          pip install -r requirements.txt
+
       - name: Convert ICO to ICNS (macOS)
         run: |
-          sips -s format png ASSETS/PortF.ico --out icon_256x256.png
-          mkdir icon.iconset
-          mv icon_256x256.png icon.iconset/icon_256x256.png
-          iconutil -c icns icon.iconset -o PortF.icns
-          rm -rf icon.iconset
+          sips -s format png ASSETS/PortF.ico --out ASSETS/icon_256x256.png
+          mkdir ASSETS/icon.iconset
+          mv ASSETS/icon_256x256.png ASSETS/icon.iconset/icon_256x256.png
+          iconutil -c icns ASSETS/icon.iconset -o ASSETS/PortF.icns
+          rm -rf ASSETS/icon.iconset
+
       - name: Build application for macOS
         run: |
-          pyinstaller --onefile --windowed --icon PortF.icns --add-data "PortF.icns:." GHP.py
+          pyinstaller --onefile --windowed --icon ASSETS/PortF.icns --add-data "ASSETS/PortF.icns:." src/GHP.py
           mkdir -p dist/mac
           mv dist/GHP.app dist/mac/GHP.app
+
       - name: Upload macOS artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: macos-application
           path: dist/mac
@@ -79,12 +75,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: '12'
+          node-version: '14'
 
       - name: Install dependencies
         run: npm install -g markdown-to-html-cli
@@ -93,7 +89,7 @@ jobs:
         run: markdown-to-html -i README.md -o index.html
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./
