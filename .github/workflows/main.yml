@@ -11,8 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
-        python-version: [3.10]
+        os: [windows-latest, macos-latest]
 
     steps:
       - name: Checkout Code
@@ -21,7 +20,7 @@ jobs:
       - name: Set Up Python
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.10
 
       - name: Cache Python Dependencies
         uses: actions/cache@v2
@@ -37,32 +36,21 @@ jobs:
           pip install pyinstaller
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         shell: bash
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'macos-latest'
 
       - name: Install Dependencies (Windows)
         if: matrix.os == 'windows-latest'
         run: |
           python -m pip install --upgrade pip
           pip install pyinstaller
-          if (Test-Path requirements.txt) {
-            pip install -r requirements.txt
-          }
-        shell: pwsh
-
-      - name: Copy Icon from ASSETS Folder
-        run: |
-          if [ -f "${GITHUB_WORKSPACE}/ASSETS/PortF.ico" ]; then
-            cp "${GITHUB_WORKSPACE}/ASSETS/PortF.ico" .
-          fi
-        shell: bash
+          if exist requirements.txt pip install -r requirements.txt
+        shell: cmd
 
       - name: Copy Icon from ASSETS Folder (Windows)
         if: matrix.os == 'windows-latest'
         run: |
-          if (Test-Path "${GITHUB_WORKSPACE}/ASSETS/PortF.ico") {
-            Copy-Item "${GITHUB_WORKSPACE}/ASSETS/PortF.ico" -Destination "."
-          }
-        shell: pwsh
+          if exist "${GITHUB_WORKSPACE}\ASSETS\PortF.ico" copy "${GITHUB_WORKSPACE}\ASSETS\PortF.ico" .
+        shell: cmd
 
       - name: Build Application
         run: |
@@ -73,15 +61,15 @@ jobs:
       - name: Organize Artifacts
         run: |
           $destDir = "${GITHUB_WORKSPACE}/dist/${{ matrix.os }}/application"
-          New-Item -ItemType Directory -Force -Path $destDir
+          mkdir -p $destDir
           mv GHP $destDir
-        shell: pwsh
+        shell: bash
 
       - name: Upload Artifacts
         if: success()
         uses: actions/upload-artifact@v2
         with:
-          name: application-${{ matrix.os }}-python-${{ matrix.python-version }}
+          name: application-${{ matrix.os }}-python-3.10
           path: dist/${{ matrix.os }}
 
       - name: Notify Build Completion
