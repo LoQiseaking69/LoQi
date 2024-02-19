@@ -24,17 +24,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install pyinstaller PyQt5 requests
-
       - name: Copy Windows assets
         run: |
           cp ASSETS/PortF.ico ./
-
       - name: Build application for Windows
         run: |
           pyinstaller --onefile --windowed --icon PortF.ico --add-data "ASSETS/PortF.ico;." GHP.py
           mkdir -p dist/windows
           mv dist/GHP.exe dist/windows/GHP.exe
-
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v2
         with:
@@ -59,22 +56,18 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install pyinstaller PyQt5 requests
-
       - name: Convert ICO to ICNS (macOS)
         run: |
           sips -s format png ASSETS/PortF.ico --out icon_256x256.png
           mkdir icon.iconset
           mv icon_256x256.png icon.iconset/icon_256x256.png
-          iconutil -c icns icon.iconset
-          mv icon.icns PortF.icns
+          iconutil -c icns icon.iconset -o PortF.icns
           rm -rf icon.iconset
-
       - name: Build application for macOS
         run: |
           pyinstaller --onefile --windowed --icon PortF.icns --add-data "PortF.icns:." GHP.py
           mkdir -p dist/mac
           mv dist/GHP.app dist/mac/GHP.app
-
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v2
         with:
