@@ -35,6 +35,12 @@ To run the GitHub Portfolio App on your local machine, follow these steps:
 1. Clone the repository using Git.
 2. Navigate to the app's directory.
 3. Install the required dependencies.
+```bash
+pip install -r requirements.txt
+```
 4. Run the application.
+```bash
+python GHP.py
+```
 
 🎉 Enjoy exploring the GitHub portfolio of LoQiseaking69! 🎊
