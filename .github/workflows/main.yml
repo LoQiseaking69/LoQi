@@ -25,11 +25,10 @@ jobs:
 
       - name: Build application for Windows
         run: |
-          pyinstaller --onefile --windowed --icon ASSETS/PortF.ico --add-data "ASSETS/fav.PNG;." src/GHP.py
+          pyinstaller --onefile --windowed --icon ASSETS/PortF.ico \
+            --add-data "ASSETS/fav.PNG;ASSETS/" --add-data "ASSETS/portFO.PNG;ASSETS/" src/GHP.py
           mkdir -p dist/windows
           mv dist/GHP.exe dist/windows/GHP.exe
-          cp ASSETS/PortF.ico dist/windows/
-          cp ASSETS/fav.PNG dist/windows/
 
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v3
@@ -56,10 +55,10 @@ jobs:
 
       - name: Build application for macOS
         run: |
-          pyinstaller --onefile --windowed --add-data "ASSETS/fav.PNG:." src/GHP.py
+          pyinstaller --onefile --windowed \
+            --add-data "ASSETS/fav.PNG:ASSETS/" --add-data "ASSETS/portFO.PNG:ASSETS/" src/GHP.py
           mkdir -p dist/mac
           mv dist/GHP.app dist/mac/GHP.app
-          cp ASSETS/fav.PNG dist/mac/
 
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v3
