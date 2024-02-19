@@ -63,27 +63,3 @@ jobs:
         with:
           name: macos-application
           path: dist/mac/GHP.app
-
-  deploy-to-gh-pages:
-    needs: [build-windows, build-macos]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-
-      - name: Install markdown-to-html-cli
-        run: npm install -g markdown-to-html-cli
-
-      - name: Convert README to HTML
-        run: markdown-to-html -i README.md -o index.html
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
