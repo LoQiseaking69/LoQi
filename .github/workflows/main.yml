@@ -39,9 +39,9 @@ jobs:
       - name: Build application
         run: |
           pyinstaller --onefile --icon=PortF.ico GHP.py
-          if not exist ${{ github.workspace }}/dist (
+          if (-not (Test-Path ${{ github.workspace }}/dist)) {
             mkdir ${{ github.workspace }}/dist
-          )
+          }
           mv dist/* ${{ github.workspace }}/dist/application
 
       - name: Save artifact
