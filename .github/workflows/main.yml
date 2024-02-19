@@ -23,26 +23,28 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          pip install pyqt5 pyqtwebengine
+      - name: Copy icon from ASSETS folder
+        run: cp ${{ github.workspace }}/ASSETS/PortF.ico ./
 
       - name: Build application
         run: |
-          pyinstaller --onefile main.py
+          pip install -r requirements.txt
+          pyinstaller --onefile --icon=PortF.ico main.py
+          mkdir -p $GITHUB_WORKSPACE/dist
           mv dist/* $GITHUB_WORKSPACE/dist
 
       - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main' && matrix.python-version == '3.8' && matrix.os == 'ubuntu-latest'
         uses: JamesIves/github-pages-deploy-action@4.1.6
         with:
-          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
           FOLDER: dist
           CLEAN: true
 
       - name: Save artifact
+        if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: application
+          name: application-${{ matrix.os }}-python-${{ matrix.python-version }}
           path: $GITHUB_WORKSPACE/dist
