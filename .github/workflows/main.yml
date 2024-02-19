@@ -36,7 +36,7 @@ jobs:
           pip install -r requirements.txt
           pyinstaller --onefile --icon=PortF.ico GHP.py
           mkdir -p $GITHUB_WORKSPACE/dist
-          mv dist/* $GITHUB_WORKSPACE/dist
+          mv dist/* $GITHUB_WORKSPACE/dist/application
 
       - name: Save artifact
         if: always()
