@@ -4,7 +4,7 @@ This GitHub Portfolio App is a PyQt5-based desktop application designed to showc
 
 <div style="display: flex; justify-content: space-around;">
   <img src="https://github.com/LoQiseaking69/LoQi/blob/main/ASSETS/IMG_7298.jpeg" width="400" alt="Image">
-  <img src="https://github.com/LoQiseaking69/LoQi/raw/main/ASSETS/IMG_7286.png" width="400" alt="Image">
+  <img src="https://github.com/LoQiseaking69/LoQi/blob/main/ASSETS/IMG_7310.jpeg" width="400" alt="Image">
 </div>
 
 ## Download the Application
