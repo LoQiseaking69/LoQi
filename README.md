@@ -7,6 +7,20 @@ This GitHub Portfolio App is a PyQt5-based desktop application designed to showc
   <img src="https://github.com/LoQiseaking69/LoQi/raw/main/ASSETS/IMG_7286.png" width="400" alt="Image">
 </div>
 
+## Download the Application
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+
+<a href="https://github.com/LoQiseaking69/LoQi/raw/main/path/to/your/executable.exe">
+  <img src="https://img.shields.io/badge/Download%20for-Windows-blue?style=for-the-badge&logo=windows" alt="Download for Windows">
+</a>
+
+<a href="https://github.com/LoQiseaking69/LoQi/raw/main/path/to/your/application.app">
+  <img src="https://img.shields.io/badge/Download%20for-macOS-lightgrey?style=for-the-badge&logo=apple" alt="Download for macOS">
+</a>
+
+</div>
+
 ## 🌟 Key Features
 
 - **Profile Overview**: Displays key profile information of LoQiseaking69, including followers, following, and total repositories.
