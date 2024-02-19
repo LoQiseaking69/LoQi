@@ -7,12 +7,12 @@ This GitHub Portfolio App is a PyQt5-based desktop application designed to showc
   <img src="https://github.com/LoQiseaking69/LoQi/blob/main/ASSETS/IMG_7298.jpeg" width="400" alt="Image">
 </div>
 __________________________________________________________________________________________________________________________________________________________________________________________________________
-
+      ## The unintended outcome...
  <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
     <img src="https://github.com/LoQiseaking69/LoQi/blob/main/ASSETS/IMG_7310.jpeg" width="400" alt="Image">
 </div>
 
-**The unintended outcome... but, if you prefer an easier to use side panel with repo insights for 
+but, if you prefer an easier to use side panel with repo insights for 
                          quick views of how my repos are doing, clone normally; otherwise, if you just like the webview,
                                                              download your flavor of executable below.**
                                                              
