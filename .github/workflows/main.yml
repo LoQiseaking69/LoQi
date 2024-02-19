@@ -31,7 +31,6 @@ jobs:
       - name: Copy icon from ASSETS folder
         run: |
           cp ${{ github.workspace }}/ASSETS/PortF.ico ./
-        if: matrix.os == 'macos-latest'
 
       - name: Install dependencies
         run: |
