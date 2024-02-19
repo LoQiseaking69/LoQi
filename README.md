@@ -24,6 +24,9 @@ To run the GitHub Portfolio App on your local machine, follow these steps:
 - Python (3.x recommended)
 - Git (for cloning the repository)
 
+```bash
+git clone 'https://github.com/LoQiseaking69/LoQi'
+
 ### Dependencies
 
 - PyQt5
