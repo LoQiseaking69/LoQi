@@ -50,17 +50,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Convert ICO to ICNS (macOS)
-        run: |
-          sips -s format png ASSETS/PortF.ico --out ASSETS/icon_256x256.png
-          mkdir ASSETS/icon.iconset
-          mv ASSETS/icon_256x256.png ASSETS/icon.iconset/icon_256x256.png
-          iconutil -c icns ASSETS/icon.iconset -o ASSETS/PortF.icns
-          rm -rf ASSETS/icon.iconset
-
       - name: Build application for macOS
         run: |
-          pyinstaller --onefile --windowed --icon ASSETS/PortF.icns --add-data "ASSETS/PortF.icns:." src/GHP.py
+          pyinstaller --onefile --windowed src/GHP.py
           mkdir -p dist/mac
           mv dist/GHP.app dist/mac/GHP.app
 
