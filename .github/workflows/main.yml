@@ -25,15 +25,17 @@ jobs:
 
       - name: Build application for Windows
         run: |
-          pyinstaller --onefile --windowed --icon ASSETS/PortF.ico src/GHP.py
+          pyinstaller --onefile --windowed --icon ASSETS/PortF.ico --add-data "ASSETS/fav.PNG;ASSETS/" src/GHP.py
           mkdir -p dist/windows
           mv dist/GHP.exe dist/windows/GHP.exe
+          cp ASSETS/PortF.ico dist/windows/
+          cp ASSETS/fav.PNG dist/windows/
 
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v3
         with:
           name: windows-application
-          path: dist/windows/GHP.exe
+          path: dist/windows
 
   build-macos:
     runs-on: macos-latest
@@ -52,14 +54,25 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
 
+      - name: Convert ICO to ICNS for macOS
+        run: |
+          sips -s format png ASSETS/PortF.ico --out icon_256x256.png
+          mkdir icon.iconset
+          mv icon_256x256.png icon.iconset/icon_256x256.png
+          iconutil -c icns icon.iconset
+          mv icon.icns ASSETS/PortF.icns
+          rm -rf icon.iconset
+
       - name: Build application for macOS
         run: |
-          pyinstaller --onefile --windowed src/GHP.py
+          pyinstaller --onefile --windowed --icon ASSETS/PortF.icns --add-data "ASSETS/fav.PNG:ASSETS/" src/GHP.py
           mkdir -p dist/mac
           mv dist/GHP.app dist/mac/GHP.app
+          cp ASSETS/PortF.icns dist/mac/
+          cp ASSETS/fav.PNG dist/mac/
 
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v3
         with:
           name: macos-application
-          path: dist/mac/GHP.app
+          path: dist/mac
