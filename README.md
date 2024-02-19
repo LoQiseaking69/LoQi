@@ -4,6 +4,7 @@ This GitHub Portfolio App is a PyQt5-based desktop application designed to showc
 
 <img src="https://github.com/LoQiseaking69/LoQi/raw/main/ASSETS/IMG_7285.png" align="left" alt="Image">
 
+
 ## 🌟 Key Features
 
 - **Profile Overview**: Displays key profile information of LoQiseaking69, including followers, following, and total repositories.
