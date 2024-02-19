@@ -2,9 +2,9 @@
 
 This GitHub Portfolio App is a PyQt5-based desktop application designed to showcase the GitHub portfolio of LoQiseaking69. It provides an interactive and user-friendly interface to view and explore repositories, enhancing the visibility and accessibility of my work.
 
-                                                                                        *The unintended outcome... but, if you prefer an easier to use side panel with repo insights for 
+  The unintended outcome... but, if you prefer an easier to use side panel with repo insights for 
                                                                                         quick views of how my repos are doing, clone normally; otherwise, if you just like the webview,
-                                                                                        download your flavor of executable below.*
+                                                                                        download your flavor of executable below.
 
 <div style="display: flex; justify-content: space-around;">
   <img src="https://github.com/LoQiseaking69/LoQi/blob/main/ASSETS/IMG_7298.jpeg" width="400" alt="Image">
