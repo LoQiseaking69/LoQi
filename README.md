@@ -11,7 +11,7 @@ This GitHub Portfolio App is a PyQt5-based desktop application designed to showc
 
 <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
 
-<a href="https://github.com/LoQiseaking69/LoQi/raw/main/path/to/your/executable.exe">
+<a href="https://github.com/LoQiseaking69/LoQi/actions/runs/7964992100/artifacts/1257627320">
   <img src="https://img.shields.io/badge/Download%20for-Windows-blue?style=for-the-badge&logo=windows" alt="Download for Windows">
 </a>
 
