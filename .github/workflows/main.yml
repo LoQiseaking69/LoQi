@@ -15,6 +15,12 @@ jobs:
         python-version: [3.9]
 
     steps:
+      - name: Clean workspace
+        run: |
+          git clean -ffdx
+      - name: Set up working directory
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/dist
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -39,7 +45,6 @@ jobs:
       - name: Build application
         run: |
           pyinstaller --onefile --icon=PortF.ico GHP.py
-          mkdir -p $GITHUB_WORKSPACE/dist
           mv dist/* $GITHUB_WORKSPACE/dist/application
 
       - name: Save artifact
