@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        python-version: [3.8, 3.9, 3.10]  # Valid Python versions
+        python-version: [3.8, 3.9, 3.10]  # Updated to valid Python versions
 
     steps:
       - name: Checkout Code
