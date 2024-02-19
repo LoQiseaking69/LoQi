@@ -15,12 +15,12 @@ jobs:
         python-version: [3.9]
 
     steps:
-      - name: Clean workspace
-        run: |
-          git clean -ffdx
       - name: Set up working directory
         run: |
-          mkdir -p $GITHUB_WORKSPACE/dist
+          mkdir -p $GITHUB_WORKSPACE/dist $GITHUB_WORKSPACE/ASSETS
+          mv * $GITHUB_WORKSPACE/ASSETS  # Move all files to ASSETS folder
+          cd $GITHUB_WORKSPACE/ASSETS
+
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -35,17 +35,16 @@ jobs:
           pip install pyinstaller
 
       - name: Copy icon from ASSETS folder
-        run: |
-          cp ${{ github.workspace }}/ASSETS/PortF.ico ./
+        run: cp PortF.ico $GITHUB_WORKSPACE
 
       - name: Install dependencies
-        run: |
-          python -m pip install -r requirements.txt
+        run: python -m pip install -r $GITHUB_WORKSPACE/requirements.txt
 
       - name: Build application
         run: |
+          cd $GITHUB_WORKSPACE/ASSETS  # Move back to ASSETS folder
           pyinstaller --onefile --icon=PortF.ico GHP.py
-          mv dist/* $GITHUB_WORKSPACE/dist/application
+          mv dist/* $GITHUB_WORKSPACE/dist/application  # Move artifacts to dist folder
 
       - name: Save artifact
         if: always()
