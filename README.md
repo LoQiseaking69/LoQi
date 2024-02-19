@@ -2,20 +2,22 @@
 
 This GitHub Portfolio App is a PyQt5-based desktop application designed to showcase the GitHub portfolio of LoQiseaking69. It provides an interactive and user-friendly interface to view and explore repositories, enhancing the visibility and accessibility of my work.
 
+*The unintended outcome... but, if you prefer an easier to use side panel with repo insights for quick views of how my repos are doing, clone normally; otherwise, if you just like the webview, download your flavor of executable below.*
+
 <div style="display: flex; justify-content: space-around;">
-  <img src="https://github.com/LoQiseaking69/LoQi/blob/main/ASSETS/IMG_7298.jpeg" width="400" alt="Image">
-  <img src="https://github.com/LoQiseaking69/LoQi/blob/main/ASSETS/IMG_7310.jpeg" width="400" alt="Image">
+  <img src="https://github.com/LoQiseaking69/LoQi/raw/main/ASSETS/IMG_7285.png" width="400" alt="Image">
+  <img src="https://github.com/LoQiseaking69/LoQi/raw/main/ASSETS/IMG_7286.png" width="400" alt="Image">
 </div>
 
 ## Download the Application
 
 <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
 
-<a href="https://github.com/LoQiseaking69/LoQi/actions/runs/7964992100/artifacts/1257627320">
+<a href="https://github.com/LoQiseaking69/LoQi/raw/main/path/to/your/executable.exe">
   <img src="https://img.shields.io/badge/Download%20for-Windows-blue?style=for-the-badge&logo=windows" alt="Download for Windows">
 </a>
 
-<a href="https://github.com/LoQiseaking69/LoQi/actions/runs/7964842893/artifacts/1257595563">
+<a href="https://github.com/LoQiseaking69/LoQi/raw/main/path/to/your/application.app">
   <img src="https://img.shields.io/badge/Download%20for-macOS-lightgrey?style=for-the-badge&logo=apple" alt="Download for macOS">
 </a>
 
@@ -28,6 +30,7 @@ This GitHub Portfolio App is a PyQt5-based desktop application designed to showc
 - **Repository Details**: View detailed information about each repository, including description, programming language used, forks count, and stars.
 - **Integrated WebView**: Access repositories and the user's GitHub profile directly within the application.
 - **Custom UI**: Styled with a modern and sleek design, featuring custom button styles and a unique favicon.
+
 
 ## 🔧 Installation
 
