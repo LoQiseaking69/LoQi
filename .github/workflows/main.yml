@@ -14,9 +14,6 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
         python-version: [3.7, 3.8, 3.9]
 
-    env:
-      PORTF: ${{ secrets.PF_TOKEN }}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -30,17 +27,6 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install pyqt5 pyqtwebengine
-
-      - name: Set up environment variables
-        run: |
-          echo "PORTF=${{ secrets.PF_TOKEN }}" >> $GITHUB_ENV
-
-      - name: Create secret
-        run: |
-          echo ${{ secrets.PF_TOKEN }} > token.txt
-          gh secret set PF_TOKEN --body token.txt
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build application
         run: |
