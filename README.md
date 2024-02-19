@@ -1,6 +1,6 @@
 # 🚀 GitHub Portfolio App - LoQiseaking69 🤖
 
-This GitHub Portfolio App is a PyQt5-based desktop application designed to showcase the GitHub portfolio of LoQiseaking69. It provides an interactive and user-friendly interface to view and explore repositories, enhancing the visibility and accessibility of your work.
+This GitHub Portfolio App is a PyQt5-based desktop application designed to showcase the GitHub portfolio of LoQiseaking69. It provides an interactive and user-friendly interface to view and explore repositories, enhancing the visibility and accessibility of my work.
 
 <div style="display: flex; justify-content: space-around;">
   <img src="https://github.com/LoQiseaking69/LoQi/raw/main/ASSETS/IMG_7285.png" width="400" alt="Image">
