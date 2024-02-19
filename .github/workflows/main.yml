@@ -6,14 +6,11 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-
+  build-windows:
+    runs-on: windows-latest
     strategy:
       matrix:
-        os: [windows-latest, macos-latest]
         python-version: [3.9]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -28,28 +25,82 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyinstaller PyQt5 requests
 
-      - name: Copy assets
+      - name: Copy Windows assets
         run: |
-          mkdir -p ASSETS
-          cp ASSETS/fav.PNG ASSETS/PortF.ico ./
-
-      - name: Build application for macOS
-        if: matrix.os == 'macos-latest'
-        run: |
-          pyinstaller --onefile --windowed --icon PortF.ico --add-data "fav.PNG:." --add-data "PortF.ico:." GHP.py
-          mkdir -p dist/mac
-          mv dist/GHP.app dist/mac/GHP.app
+          cp ASSETS/PortF.ico ./
 
       - name: Build application for Windows
-        if: matrix.os == 'windows-latest'
         run: |
-          pyinstaller --onefile --windowed --icon PortF.ico --add-data "fav.PNG;." --add-data "PortF.ico;." GHP.py
+          pyinstaller --onefile --windowed --icon PortF.ico --add-data "ASSETS/PortF.ico;." GHP.py
           mkdir -p dist/windows
           mv dist/GHP.exe dist/windows/GHP.exe
 
-      - name: Save artifact
-        if: always()
+      - name: Upload Windows artifact
         uses: actions/upload-artifact@v2
         with:
-          name: application-${{ matrix.os }}-python-${{ matrix.python-version }}
-          path: dist/
+          name: windows-application
+          path: dist/windows
+
+  build-macos:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        python-version: [3.9]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller PyQt5 requests
+
+      - name: Convert ICO to ICNS (macOS)
+        run: |
+          sips -s format png ASSETS/PortF.ico --out icon_256x256.png
+          mkdir icon.iconset
+          mv icon_256x256.png icon.iconset/icon_256x256.png
+          iconutil -c icns icon.iconset
+          mv icon.icns PortF.icns
+          rm -rf icon.iconset
+
+      - name: Build application for macOS
+        run: |
+          pyinstaller --onefile --windowed --icon PortF.icns --add-data "PortF.icns:." GHP.py
+          mkdir -p dist/mac
+          mv dist/GHP.app dist/mac/GHP.app
+
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: macos-application
+          path: dist/mac
+
+  deploy-to-gh-pages:
+    needs: [build-windows, build-macos]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+
+      - name: Install dependencies
+        run: npm install -g markdown-to-html-cli
+
+      - name: Convert README to HTML
+        run: markdown-to-html -i README.md -o index.html
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
