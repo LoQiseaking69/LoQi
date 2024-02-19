@@ -15,12 +15,6 @@ jobs:
         python-version: [3.9]
 
     steps:
-      - name: Set up working directory
-        run: |
-          mkdir -p $GITHUB_WORKSPACE/dist $GITHUB_WORKSPACE/ASSETS
-          mv * $GITHUB_WORKSPACE/ASSETS  # Move all files to ASSETS folder
-          cd $GITHUB_WORKSPACE/ASSETS
-
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -45,12 +39,12 @@ jobs:
       - name: Build application
         run: |
           pyinstaller --onefile --icon=PortF.ico GHP.py
-          mkdir -p $GITHUB_WORKSPACE/dist
-          mv dist/* $GITHUB_WORKSPACE/dist/application
+          mkdir -p ${{ github.workspace }}/dist
+          mv dist/* ${{ github.workspace }}/dist/application
 
       - name: Save artifact
         if: always()
         uses: actions/upload-artifact@v2
         with:
           name: application-${{ matrix.os }}-python-${{ matrix.python-version }}
-          path: $GITHUB_WORKSPACE/dist
+          path: ${{ github.workspace }}/dist
