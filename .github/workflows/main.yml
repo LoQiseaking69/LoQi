@@ -23,39 +23,33 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install PyInstaller
-        run: |
-          python -m pip install --upgrade pip
-          pip install pyinstaller
-
-      - name: Copy icon from ASSETS folder
-        run: |
-          cp ${{ github.workspace }}/ASSETS/PortF.ico ./
-
       - name: Install dependencies
         run: |
-          python -m pip install -r requirements.txt
+          python -m pip install --upgrade pip
+          pip install pyinstaller PyQt5 requests
 
-      - name: Build application
-        if: ${{ matrix.os == 'macos-latest' }}
+      - name: Copy assets
         run: |
-          pyinstaller --onefile --icon=PortF.ico GHP.py
-          mkdir -p ${{ github.workspace }}/dist
-          mv dist/* ${{ github.workspace }}/dist/application
+          mkdir -p ASSETS
+          cp ASSETS/fav.PNG ASSETS/PortF.ico ./
 
-      - name: Build application
-        if: ${{ matrix.os == 'windows-latest' }}
-        shell: pwsh
+      - name: Build application for macOS
+        if: matrix.os == 'macos-latest'
         run: |
-          pyinstaller --onefile --icon=PortF.ico GHP.py
-          if (-not (Test-Path '${{ github.workspace }}/dist')) {
-            mkdir '${{ github.workspace }}/dist'
-          }
-          mv dist/* '${{ github.workspace }}/dist/application'
+          pyinstaller --onefile --windowed --icon PortF.ico --add-data "fav.PNG:." --add-data "PortF.ico:." GHP.py
+          mkdir -p dist/mac
+          mv dist/GHP.app dist/mac/GHP.app
+
+      - name: Build application for Windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          pyinstaller --onefile --windowed --icon PortF.ico --add-data "fav.PNG;." --add-data "PortF.ico;." GHP.py
+          mkdir -p dist/windows
+          mv dist/GHP.exe dist/windows/GHP.exe
 
       - name: Save artifact
         if: always()
         uses: actions/upload-artifact@v2
         with:
           name: application-${{ matrix.os }}-python-${{ matrix.python-version }}
-          path: ${{ github.workspace }}/dist
+          path: dist/
