@@ -35,16 +35,18 @@ jobs:
           pip install pyinstaller
 
       - name: Copy icon from ASSETS folder
-        run: cp PortF.ico $GITHUB_WORKSPACE
+        run: |
+          cp ${{ github.workspace }}/ASSETS/PortF.ico ./
 
       - name: Install dependencies
-        run: python -m pip install -r $GITHUB_WORKSPACE/requirements.txt
+        run: |
+          python -m pip install -r requirements.txt
 
       - name: Build application
         run: |
-          cd $GITHUB_WORKSPACE/ASSETS  # Move back to ASSETS folder
           pyinstaller --onefile --icon=PortF.ico GHP.py
-          mv dist/* $GITHUB_WORKSPACE/dist/application  # Move artifacts to dist folder
+          mkdir -p $GITHUB_WORKSPACE/dist
+          mv dist/* $GITHUB_WORKSPACE/dist/application
 
       - name: Save artifact
         if: always()
