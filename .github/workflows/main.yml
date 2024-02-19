@@ -37,12 +37,21 @@ jobs:
           python -m pip install -r requirements.txt
 
       - name: Build application
+        if: ${{ matrix.os == 'macos-latest' }}
         run: |
           pyinstaller --onefile --icon=PortF.ico GHP.py
-          if (-not (Test-Path ${{ github.workspace }}/dist)) {
-            mkdir ${{ github.workspace }}/dist
-          }
+          mkdir -p ${{ github.workspace }}/dist
           mv dist/* ${{ github.workspace }}/dist/application
+
+      - name: Build application
+        if: ${{ matrix.os == 'windows-latest' }}
+        shell: pwsh
+        run: |
+          pyinstaller --onefile --icon=PortF.ico GHP.py
+          if (-not (Test-Path '${{ github.workspace }}/dist')) {
+            mkdir '${{ github.workspace }}/dist'
+          }
+          mv dist/* '${{ github.workspace }}/dist/application'
 
       - name: Save artifact
         if: always()
