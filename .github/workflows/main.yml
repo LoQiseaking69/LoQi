@@ -21,11 +21,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pyinstaller
 
       - name: Build application for Windows
         run: |
-          pyinstaller --onefile --windowed --icon ASSETS/PortF.ico --add-data "ASSETS/fav.PNG;ASSETS/" --add-data "ASSETS/portFO.PNG;ASSETS/" src/GHP.py
+          pyinstaller --onefile --windowed --icon ASSETS/src/PortF.ico \
+            --add-data "ASSETS/fav.PNG;." \
+            --add-data "ASSETS/portFO.PNG;." ASSETS/src/GHP.py
           mkdir -p dist/windows
           mv dist/GHP.exe dist/windows/GHP.exe
         shell: pwsh
@@ -51,11 +52,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pyinstaller
 
       - name: Build application for macOS
         run: |
-          pyinstaller --onefile --windowed --add-data "ASSETS/fav.PNG:ASSETS/" --add-data "ASSETS/portFO.PNG:ASSETS/" src/GHP.py
+          pyinstaller --onefile --windowed \
+            --add-data "ASSETS/fav.PNG:." \
+            --add-data "ASSETS/portFO.PNG:." ASSETS/src/GHP.py
           mkdir -p dist/mac
           mv dist/GHP.app dist/mac/GHP.app
 
