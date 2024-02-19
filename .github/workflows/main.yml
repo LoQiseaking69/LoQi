@@ -34,7 +34,7 @@ jobs:
       - name: Build application
         run: |
           pip install -r requirements.txt
-          pyinstaller --onefile --icon=PortF.ico main.py
+          pyinstaller --onefile --icon=PortF.ico GHP.py
           mkdir -p $GITHUB_WORKSPACE/dist
           mv dist/* $GITHUB_WORKSPACE/dist
 
