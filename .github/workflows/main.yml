@@ -53,7 +53,11 @@ jobs:
         shell: bash
         run: |
           mkdir -p ${GITHUB_WORKSPACE}/dist/${{ matrix.os }}/application
-          mv dist/* ${GITHUB_WORKSPACE}/dist/${{ matrix.os }}/application/
+          find dist -mindepth 1 -maxdepth 1 -type d ! -name ${{ matrix.os }} -exec mv {} ${GITHUB_WORKSPACE}/dist/${{ matrix.os }}/application/ \;
+          find dist -mindepth 1 -maxdepth 1 -type f -exec mv {} ${GITHUB_WORKSPACE}/dist/${{ matrix.os }}/application/ \;
+        env:
+          pythonLocation: /opt/hostedtoolcache/Python/${{ matrix.python-version }}/x64
+          LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/${{ matrix.python-version }}/x64/lib
 
       - name: Upload Artifacts
         if: success()
