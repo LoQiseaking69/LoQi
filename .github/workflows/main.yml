@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        python-version: [3.8, 3.9, 3.10]  # Specify the Python versions you want to use
+        python-version: [3.8, 3.9, 3.10]  # Ensure these versions are compatible with your project
 
     steps:
       - name: Checkout Code
