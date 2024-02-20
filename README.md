@@ -24,7 +24,7 @@ but, if you prefer an easier to use side panel with repo insights for
   <img src="https://img.shields.io/badge/Download%20for-Windows-blue?style=for-the-badge&logo=windows" alt="Download for Windows">
 </a>
 
-<a href="https://github.com/LoQiseaking69/LoQi/actions/runs/7966190330/artifacts/1257867532">
+<a href="https://github.com/LoQiseaking69/LoQi/actions/runs/7966514416/artifacts/1257925768">
   <img src="https://img.shields.io/badge/Download%20for-macOS-lightgrey?style=for-the-badge&logo=apple" alt="Download for macOS">
 </a>
 
