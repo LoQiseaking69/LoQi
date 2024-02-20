@@ -24,16 +24,14 @@ jobs:
           pip install pyinstaller
       - name: Build application for Windows
         run: |
-          pyinstaller --onefile --windowed --icon ASSETS/PortF.ico --add-data "ASSETS/fav.PNG;ASSETS/" --add-data "ASSETS/portFO.PNG;ASSETS/" src/GHP.py
+          pyinstaller --onefile --windowed --icon ASSETS/PortF.ico src/GHP.py
           mkdir -p dist/windows
           mv dist/GHP.exe dist/windows/GHP.exe
-        shell: pwsh
-
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v3
         with:
           name: windows-application
-          path: dist/windows
+          path: dist/windows/GHP.exe
 
   build-macos:
     runs-on: macos-latest
@@ -53,11 +51,11 @@ jobs:
           pip install pyinstaller
       - name: Build application for macOS
         run: |
-          pyinstaller --onefile --windowed --add-data "ASSETS/fav.PNG:ASSETS/" --add-data "ASSETS/portFO.PNG:ASSETS/" src/GHP.py
+          pyinstaller --onefile --windowed src/GHP.py
           mkdir -p dist/mac
           mv dist/GHP.app dist/mac/GHP.app
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v3
         with:
           name: macos-application
-          path: dist/mac
+          path: dist/mac/GHP.app
